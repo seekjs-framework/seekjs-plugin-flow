@@ -1,0 +1,182 @@
+<style>
+    .sk-flow{
+        width: 100%;
+        height: 100%;
+        background-color: #fcf8e3;
+        margin: 35px;
+    }
+
+    /*块*/
+    .sk-flow-panel{
+        top: 50px;
+        position: absolute;
+        width: 30%;
+        height: 100%;
+        display: inline-block;
+    }
+
+    /*矩形框*/
+    .sk-flow-rect{
+        border: 1px solid #000;
+        width: 120px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+    }
+
+    /*箭头*/
+    .sk-flow-arrow{
+        border: none;
+        width: 120px;
+        height: 20px;
+        background: url("node_modules/seek-plugin-flow/arrow-down.png") no-repeat center;
+        background-size: 20px 20px;
+        text-align: right;
+    }
+
+    /*折线*/
+    .sk-flow-polyline{
+        border: 1px solid #000;
+        border-right: none;
+        width: 100px;
+        height: 500px;
+        line-height: 500px;
+        display: inline-block;
+        float: right;
+        text-align: left;
+        margin-top: 170px;
+    }
+
+    .sk-flow-subItem{
+
+    }
+
+    .sk-flow-arrow-right{
+        position: absolute;
+        left: 180px;
+        top: 380px;
+    }
+
+</style>
+
+<template>
+    <!--箭头符号: ⇦ ⇧ ⇨ ⇩-->
+    <div class="sk-flow">
+        <div class="sk-flow-panel" style="left: 3%;">
+            <div class="sk-flow-polyline">Y</div>
+        </div>
+        <ul class="sk-flow-panel" style="left:33%;">
+            {foreach src=this.data}
+                <li class="sk-flow-rect">{item.text}</li>
+                {if !src.last}
+                    {if item.type=="rhombus"}
+                        <li class="sk-flow-arrow">N</li>
+                    {else}
+                        <li class="sk-flow-arrow"></li>
+                    {/if}
+                {/if}
+            {/foreach}
+            <li class="sk-flow-arrow-right">⇨</li>
+            <li class="sk-flow-arrow-right" style="top: 590px">⇨</li>
+        </ul>
+        <div class="sk-flow-panel" style="left:63%;">
+            <ul class="sk-flow-subItem" style="margin-top: 285px;">
+                {foreach src=this.data[5].items}
+                    <li class="sk-flow-rect">{item.text}</li>
+                    {if !src.last}
+                        <li class="sk-flow-arrow"></li>
+                    {/if}
+                {/foreach}
+            </ul>
+            <ul class="sk-flow-subItem" style="margin-top: 20px;">
+                {foreach src=this.data[8].items}
+                    <li class="sk-flow-rect">{item.text}</li>
+                    {if !src.last}
+                        <li class="sk-flow-arrow"></li>
+                    {/if}
+                {/foreach}
+            </ul>
+        </div>
+    </div>
+</template>
+
+<script>
+    //default type = ellipse or rect
+    exports.data = [
+        {
+            id: "new",
+            text: "New Page"
+        },
+        {
+            id: "hash",
+            text: "Parse Hash"
+        },
+        {
+            id: "skpage",
+            text: "Parse SkPage"
+        },
+        {
+            id: "init-g",
+            text: "Global Init"
+        },
+        {
+            id: "init-p",
+            text: "View Init"
+        },
+        {
+            id: "view",
+            text: "Parse View",
+            items: [
+                {
+                    id: "css",
+                    text: "Parse Css"
+                },
+                {
+                    id: "js",
+                    text: "Parse Js"
+                },
+                {
+                    id: "template",
+                    text: "Parse Template"
+                }
+            ]
+        },
+        {
+            id: "render-g",
+            text: "Global Render"
+        },
+        {
+            id: "render-p",
+            text: "View Render"
+        },
+        {
+            id: "html",
+            text: "Parse HTML",
+            items: [
+                {
+                    id: "event",
+                    text: "Parse Event"
+                },
+                {
+                    id: "bind",
+                    text: "Parse Bind"
+                },
+                {
+                    id: "part",
+                    text: "Parse Part"
+                }
+            ]
+        },
+        {
+            id: "subview",
+            text: "Has SubView",
+            type: "rhombus",
+            yes: "init-p",
+            no: "playing"
+        },
+        {
+            id: "end",
+            text: "End"
+        }
+    ];
+</script>
