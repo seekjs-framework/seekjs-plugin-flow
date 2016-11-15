@@ -57,6 +57,69 @@
         top: 380px;
     }
 
+    .diamond {
+        display: inline-block;
+        position: relative;
+        font-size: 0;
+        margin-top: -7px;
+
+    }
+    .diamond span{
+        position: absolute;
+        display: inline-block;
+        width: 140px;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        top: 0;
+        left: 0;
+        z-index: 99;
+        font-size: 14px;
+    }
+
+    .diamond b,
+    .diamond i{
+        display: inline-block;
+        position: relative;
+    }
+    .diamond b{
+        width: 0;
+        height: 0;
+        border-top: 30px solid transparent;
+        border-right: 70px solid #000;
+        border-bottom: 30px solid transparent;
+    }
+    .diamond i{
+        width: 0;
+        height: 0;
+        border-top: 30px solid transparent;
+        border-left: 70px solid #000;
+        border-bottom: 30px solid transparent;
+    }
+    .diamond b::before,
+    .diamond i::before{
+        content: "";
+        display: inline-block;
+        width: 0;
+        height: 0;
+        position: absolute;
+    }
+
+    .diamond b::before{
+        border-top: 29px solid transparent;
+        border-right: 68px solid #FCFCFC;
+        border-bottom: 29px solid transparent;
+        top: -29px;
+        left: 2px;
+    }
+    .diamond i::before{
+        border-top: 29px solid transparent;
+        border-left: 68px solid #FCFCFC;
+        border-bottom: 29px solid transparent;
+        top: -29px;
+        right: 2px;
+    }
+
 </style>
 
 <template>
@@ -67,7 +130,13 @@
         </div>
         <ul class="sk-flow-panel" style="left:33%;">
             {foreach src=this.data}
-                <li class="sk-flow-rect">{item.text}</li>
+
+                {if item.type=="rhombus"}
+                    <li><div class="diamond"><b></b><span>{item.text}</span><i></i></div></li>
+                {else}
+                    <li class="sk-flow-rect">{item.text}</li>
+                {/if}
+
                 {if !src.last}
                     {if item.type=="rhombus"}
                         <li class="sk-flow-arrow">N</li>
