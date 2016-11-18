@@ -3,22 +3,35 @@
         width: 100%;
         height: 100%;
         background-color: #fcf8e3;
-        margin: 35px;
+        position: relative;
+    }
+
+    .sk-flow * {
+        box-sizing: border-box;
+    }
+
+    .sk-flow-title{
+        position: relative;
+        height: 50px;
+        line-height: 50px;
+        font-weight: bolder;
     }
 
     /*块*/
-    .sk-flow-panel{
-        top: 50px;
+    .sk-flow-content{
+        position: relative;
+    }
+
+    .sk-flow-content>*{
         position: absolute;
-        width: 30%;
-        height: 100%;
-        display: inline-block;
     }
 
     /*矩形框*/
     .sk-flow-rect{
+        left: 50%;
+        margin-left: -100px;
         border: 1px solid #000;
-        width: 120px;
+        width: 200px;
         height: 50px;
         line-height: 50px;
         text-align: center;
@@ -26,12 +39,19 @@
 
     /*箭头*/
     .sk-flow-arrow{
+        left: 50%;
+        margin-left: -100px;
         border: none;
-        width: 120px;
+        width: 200px;
         height: 20px;
         background: url("node_modules/seek-plugin-flow/arrow-down.png") no-repeat center;
         background-size: 20px 20px;
         text-align: right;
+    }
+
+    .sk-flow-arrow-right{
+        left: 50%;
+        margin-left: 120px;
     }
 
     /*折线*/
@@ -44,32 +64,32 @@
         display: inline-block;
         float: right;
         text-align: left;
-        margin-top: 170px;
+        margin-left: -200px;
+        left: 50%;
     }
 
     .sk-flow-subItem{
-
+        left: 50%;
+        margin-left: 250px;
     }
 
-    .sk-flow-arrow-right{
-        position: absolute;
-        left: 180px;
-        top: 380px;
+    .sk-flow-diamond{
+        height: 60px;
+        left: 50%;
+        margin-left: -60px;
     }
 
     .diamond {
         display: inline-block;
         position: relative;
         font-size: 0;
-        margin-top: -7px;
-
     }
     .diamond span{
         position: absolute;
         display: inline-block;
         width: 140px;
-        height: 60px;
-        line-height: 60px;
+        height: 50px;
+        line-height: 50px;
         text-align: center;
         top: 0;
         left: 0;
@@ -125,127 +145,60 @@
 <template>
     <!--箭头符号: ⇦ ⇧ ⇨ ⇩-->
     <div class="sk-flow">
-        <div class="sk-flow-panel" style="left: 3%;">
-            <div class="sk-flow-polyline">Y</div>
-        </div>
-        <ul class="sk-flow-panel" style="left:33%;">
+        {if this.options.title}
+            <header class="sk-flow-title">{this.options.title}</header>
+        {/if}
+        <div class="sk-flow-content">
             {foreach src=this.data}
-
                 {if item.type=="rhombus"}
-                    <li><div class="diamond"><b></b><span>{item.text}</span><i></i></div></li>
+                    <div class="sk-flow-diamond" style="top:{i*70}px;">
+                        <div class="diamond"><b></b><span>{item.text}</span><i></i></div>
+                    </div>
+                    {if item.yes}
+                    <% var {marginTop,height} = this.getPx(item.id, item.yes); %>
+                    <div class="sk-flow-polyline" style="margin-top:{marginTop}px; height:{height}px; line-height:{height}px;">Y</div>
+                    {/if}
                 {else}
-                    <li class="sk-flow-rect">{item.text}</li>
+                    <div class="sk-flow-rect" style="top:{i*70}px;">{item.text}</div>
+                    {if item.items}
+                        <div class="sk-flow-arrow-right" style="top:{i*70+15}px;">⇨</div>
+                    {/if}
                 {/if}
 
                 {if !src.last}
-                    {if item.type=="rhombus"}
-                        <li class="sk-flow-arrow">N</li>
-                    {else}
-                        <li class="sk-flow-arrow"></li>
+                    <div class="sk-flow-arrow" style="top:{i*70+50}px;">{item.type=="rhombus"|iif:N}</div>
+                {/if}
+
+                {if item.items}
+                <ul class="sk-flow-subItem" style="top:{i*70}px;">
+                    {foreach src=item.items item=subItem}
+                    <li class="sk-flow-rect">{subItem.text}</li>
+                    {if !src.last}
+                    <li class="sk-flow-arrow"></li>
                     {/if}
+                    {/foreach}
+                </ul>
                 {/if}
             {/foreach}
-            <li class="sk-flow-arrow-right">⇨</li>
-            <li class="sk-flow-arrow-right" style="top: 590px">⇨</li>
-        </ul>
-        <div class="sk-flow-panel" style="left:63%;">
-            <ul class="sk-flow-subItem" style="margin-top: 285px;">
-                {foreach src=this.data[5].items}
-                    <li class="sk-flow-rect">{item.text}</li>
-                    {if !src.last}
-                        <li class="sk-flow-arrow"></li>
-                    {/if}
-                {/foreach}
-            </ul>
-            <ul class="sk-flow-subItem" style="margin-top: 20px;">
-                {foreach src=this.data[8].items}
-                    <li class="sk-flow-rect">{item.text}</li>
-                    {if !src.last}
-                        <li class="sk-flow-arrow"></li>
-                    {/if}
-                {/foreach}
-            </ul>
         </div>
     </div>
 </template>
 
-<script>
-    //default type = ellipse or rect
-    exports.data = [
-        {
-            id: "new",
-            text: "New Page"
-        },
-        {
-            id: "hash",
-            text: "Parse Hash"
-        },
-        {
-            id: "skpage",
-            text: "Parse SkPage"
-        },
-        {
-            id: "init-g",
-            text: "Global Init"
-        },
-        {
-            id: "init-p",
-            text: "View Init"
-        },
-        {
-            id: "view",
-            text: "Parse View",
-            items: [
-                {
-                    id: "css",
-                    text: "Parse Css"
-                },
-                {
-                    id: "js",
-                    text: "Parse Js"
-                },
-                {
-                    id: "template",
-                    text: "Parse Template"
-                }
-            ]
-        },
-        {
-            id: "render-g",
-            text: "Global Render"
-        },
-        {
-            id: "render-p",
-            text: "View Render"
-        },
-        {
-            id: "html",
-            text: "Parse HTML",
-            items: [
-                {
-                    id: "event",
-                    text: "Parse Event"
-                },
-                {
-                    id: "bind",
-                    text: "Parse Bind"
-                },
-                {
-                    id: "part",
-                    text: "Parse Part"
-                }
-            ]
-        },
-        {
-            id: "subview",
-            text: "Has SubView",
-            type: "rhombus",
-            yes: "init-p",
-            no: "playing"
-        },
-        {
-            id: "end",
-            text: "End"
+<script type="text/ecmascript-6">
+    exports.getIndexBy = function(key, val){
+        for(var i=0; i<this.data.length; i++) {
+            if(this.data[i][key]==val){
+                return i;
+            }
         }
-    ];
+        return -1;
+    };
+
+    exports.getPx = function(startId, endId){
+        var startIndex = this.getIndexBy("id", startId);
+        var endIndex = this.getIndexBy("id", endId);
+        var marginTop = endIndex * 70 + 25;
+        var height = (startIndex - endIndex) * 70;
+        return {marginTop,height};
+    };
 </script>
