@@ -76,7 +76,8 @@
     .sk-flow-diamond{
         height: 60px;
         left: 50%;
-        margin-left: -60px;
+        margin-left: -99px;
+        margin-top: -5px;
     }
 
     .diamond {
@@ -88,8 +89,8 @@
         position: absolute;
         display: inline-block;
         width: 140px;
-        height: 50px;
-        line-height: 50px;
+        height: 60px;
+        line-height: 60px;
         text-align: center;
         top: 0;
         left: 0;
@@ -106,14 +107,14 @@
         width: 0;
         height: 0;
         border-top: 30px solid transparent;
-        border-right: 70px solid #000;
+        border-right: 100px solid #000;
         border-bottom: 30px solid transparent;
     }
     .diamond i{
         width: 0;
         height: 0;
         border-top: 30px solid transparent;
-        border-left: 70px solid #000;
+        border-left: 100px solid #000;
         border-bottom: 30px solid transparent;
     }
     .diamond b::before,
@@ -127,14 +128,14 @@
 
     .diamond b::before{
         border-top: 29px solid transparent;
-        border-right: 68px solid #FCFCFC;
+        border-right: 98px solid #FCFCFC;
         border-bottom: 29px solid transparent;
         top: -29px;
         left: 2px;
     }
     .diamond i::before{
         border-top: 29px solid transparent;
-        border-left: 68px solid #FCFCFC;
+        border-left: 98px solid #FCFCFC;
         border-bottom: 29px solid transparent;
         top: -29px;
         right: 2px;
