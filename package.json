@@ -1,6 +1,6 @@
 {
   "name": "seekjs-plugin-flow",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "flow draw tool",
   "main": "index.sk",
   "scripts": {
