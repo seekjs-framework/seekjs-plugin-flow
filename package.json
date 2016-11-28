@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com/seekjs-framework/seek-plugin-flow.git"
+    "url": "git@github.com/seekjs-framework/seekjs-plugin-flow.git"
   },
   "keywords": [
     "flow"
