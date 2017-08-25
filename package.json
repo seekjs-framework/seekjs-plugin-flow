@@ -1,5 +1,5 @@
 {
-  "name": "seekjs-plugin-flow",
+  "name": "seek2-plugin-flow",
   "version": "1.0.4",
   "description": "flow draw tool",
   "main": "index.sk",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com/seekjs-framework/seekjs-plugin-flow.git"
+    "url": "git@github.com/seekjs/seek2-plugin-flow.git"
   },
   "keywords": [
     "flow"
